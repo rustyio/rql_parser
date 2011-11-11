@@ -1,0 +1,28 @@
+* Overview
+
+  rql_parser is a project for parsing Riak Query Syntax into tokens.
+
+  : SELECT category_id, sum(price_num)
+  : WHERE category_id = 'test' AND price_num > 200
+  : GROUP BY category_id
+
+* Process
+
+  + Step 1 - Get List of Keys
+  + Step 2 - For Each Key, Assemble Fields that we need. 
+    At the end of the process, we want to get down to a list of values. 
+
+    + For a simple field, we return the value of the field. Field can
+      either be in the metadata or in the object. Either way, we look
+      it up and remember the result in process dictionary.
+
+    + For functions across a field, the function needs to have a map
+      step and a reduce step. The map step for count, for example,
+      just returns a 1 if the field is present. The reduce step adds
+      the values.
+
+    + The list of values is stored in an ETS bag, under the group_by
+      key. Group By fields can refer to aliased SELECT fields. The
+      default group by field is '$'.
+
+    + 

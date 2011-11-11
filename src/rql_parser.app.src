@@ -1,0 +1,12 @@
+{application, rql_parser,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { rql_parser_app, []}},
+  {env, []}
+ ]}.
